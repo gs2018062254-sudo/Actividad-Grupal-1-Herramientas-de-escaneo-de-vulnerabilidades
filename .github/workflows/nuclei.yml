@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Escaneo dinámico del sitio propio
         uses: projectdiscovery/nuclei-action@v3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           version: latest
           args: >-
