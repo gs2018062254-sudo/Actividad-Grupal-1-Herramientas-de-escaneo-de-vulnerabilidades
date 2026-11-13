@@ -1,0 +1,26 @@
+name: DAST con Nuclei
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  nuclei:
+    if: ${{ vars.TARGET_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Escaneo dinámico del sitio propio
+        uses: projectdiscovery/nuclei-action@v3
+        with:
+          version: latest
+          args: >-
+            -u ${{ vars.TARGET_URL }}
+            -severity info,low,medium,high,critical
+            -rate-limit 2
+            -jsonl
