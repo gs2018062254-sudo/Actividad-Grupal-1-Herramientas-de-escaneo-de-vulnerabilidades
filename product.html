@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} | Catálogo Verde{% endblock %}
+{% block content %}
+  <nav class="breadcrumbs" aria-label="Ruta de navegación">
+    <a href="{{ url_for('home') }}">Catálogo</a><span aria-hidden="true">/</span><span>{{ product.name }}</span>
+  </nav>
+  <article class="detail-card">
+    <div class="detail-art" aria-hidden="true"><span>{{ product.category[0] }}</span></div>
+    <div class="detail-copy">
+      <p class="eyebrow">{{ product.category }}</p>
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <p class="detail-price">S/ {{ "%.2f"|format(product.price) }} <span>/ {{ product.unit }}</span></p>
+      <a class="back-link" href="{{ url_for('home') }}">← Volver al catálogo</a>
+    </div>
+  </article>
+{% endblock %}

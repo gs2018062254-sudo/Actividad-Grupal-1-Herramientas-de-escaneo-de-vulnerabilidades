@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Catálogo de productos de origen responsable.">
+    <title>{% block title %}Catálogo Verde{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="{{ url_for('home') }}" aria-label="Catálogo Verde, inicio">
+        <span class="brand-mark" aria-hidden="true">CV</span>
+        <span>Catálogo Verde</span>
+      </a>
+      <span class="header-note">Compra local, elige con calma</span>
+    </header>
+    <main class="page-shell">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+      <p>Aplicación demostrativa para una práctica autorizada de análisis DAST.</p>
+      <a href="{{ url_for('products_api') }}">API del catálogo</a>
+    </footer>
+  </body>
+</html>

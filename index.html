@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Catálogo Verde | Productos locales{% endblock %}
+{% block content %}
+  <section class="hero">
+    <p class="eyebrow">Selección consciente</p>
+    <h1>Productos sencillos, de origen responsable.</h1>
+    <p class="hero-copy">Explora una muestra de productos locales para el hogar y la despensa.</p>
+  </section>
+
+  <section class="catalog" aria-labelledby="catalog-title">
+    <div class="catalog-heading">
+      <div>
+        <p class="eyebrow">Catálogo</p>
+        <h2 id="catalog-title">Encuentra algo para ti</h2>
+      </div>
+      <span class="result-count">{{ products|length }} productos</span>
+    </div>
+
+    <form class="filters" method="get" action="{{ url_for('home') }}">
+      <label class="search-field">
+        <span>Buscar</span>
+        <input type="search" name="q" value="{{ query }}" maxlength="100" placeholder="Ej. café, hogar…">
+      </label>
+      <label class="category-field">
+        <span>Categoría</span>
+        <select name="category">
+          <option value="">Todas</option>
+          {% for item in categories %}
+            <option value="{{ item }}" {% if category == item %}selected{% endif %}>{{ item }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <button type="submit">Buscar productos</button>
+      {% if query or category %}<a class="clear-link" href="{{ url_for('home') }}">Limpiar</a>{% endif %}
+    </form>
+
+    {% if products %}
+      <div class="product-grid">
+        {% for product in products %}
+          <article class="product-card">
+            <div class="product-art art-{{ loop.index }}" aria-hidden="true"><span>{{ product.category[0] }}</span></div>
+            <div class="product-card-body">
+              <p class="product-category">{{ product.category }}</p>
+              <h3><a href="{{ url_for('product_detail', slug=product.slug) }}">{{ product.name }}</a></h3>
+              <p class="product-description">{{ product.description }}</p>
+              <div class="product-meta">
+                <strong>S/ {{ "%.2f"|format(product.price) }}</strong>
+                <span>{{ product.unit }}</span>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <h3>No encontramos productos</h3>
+        <p>Prueba con otra búsqueda o cambia la categoría.</p>
+        <a href="{{ url_for('home') }}">Ver todo el catálogo</a>
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

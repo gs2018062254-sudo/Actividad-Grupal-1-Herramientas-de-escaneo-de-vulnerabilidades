@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Página no encontrada | Catálogo Verde{% endblock %}
+{% block content %}
+  <section class="empty-state not-found">
+    <p class="eyebrow">Error 404</p>
+    <h1>No encontramos esa página</h1>
+    <p>El enlace puede haber cambiado o el producto ya no está disponible.</p>
+    <a href="{{ url_for('home') }}">Ir al catálogo</a>
+  </section>
+{% endblock %}
